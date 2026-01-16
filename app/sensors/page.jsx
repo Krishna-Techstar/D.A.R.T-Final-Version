@@ -13,7 +13,7 @@ export default function SensorsPage() {
   const [error, setError] = useState(null)
 
   // WebSocket connection for real-time data
-  const { isConnected, sensorData: wsSensorData } = useWebSocket("http://localhost:5000")
+  const { isConnected, sensorData: wsSensorData } = useWebSocket("process.env.NEXT_PUBLIC_WS_URL")
 
   // Fetch sensors from API
   useEffect(() => {

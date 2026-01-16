@@ -25,7 +25,7 @@ export default function AirQualityDashboard() {
   const [error, setError] = useState(null)
 
   // WebSocket connection for real-time data
-  const { isConnected, sensorData: wsSensorData, error: wsError } = useWebSocket("http://localhost:5000")
+  const { isConnected, sensorData: wsSensorData, error: wsError } = useWebSocket(process.env.NEXT_PUBLIC_WS_URL)
 
   // Update sensor data from WebSocket
   useEffect(() => {
