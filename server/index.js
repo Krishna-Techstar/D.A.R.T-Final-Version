@@ -1,12 +1,15 @@
-app.get("/health", (req, res) => {
-  res.json({ status: "Backend is alive 🚀" });
-});
-
 const dotenv = require("dotenv");
 const connectDB = require("./src/config/db");
 const app = require("./src/app");
 const Sensor = require("./src/models/Sensor");
 const { initializeWebSocket } = require("./src/websocket");
+
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "Backend is alive 🚀",
+  });
+});
+
 
 // Load env vars
 dotenv.config();
