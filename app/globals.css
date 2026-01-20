@@ -157,9 +157,19 @@ html.dark {
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground overflow-x-hidden;
-  }
+body {
+  @apply bg-background text-foreground overflow-x-hidden;
+  /* Eliminate tap delay on mobile */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+/* Ensure all links have fast touch response */
+a {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
 }
 
 /* Enhanced glass panel with stronger blur and better light/dark contrast */

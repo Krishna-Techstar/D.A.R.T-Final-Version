@@ -68,6 +68,23 @@ export default function AirQualityDashboard() {
     }
   }, [wsError]);
 
+  // Lock body scroll when mobile sidebar is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      // Lock body scroll
+      const originalOverflow = document.body.style.overflow;
+      const originalTouchAction = document.body.style.touchAction;
+      document.body.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none';
+      
+      // Restore on cleanup
+      return () => {
+        document.body.style.overflow = originalOverflow;
+        document.body.style.touchAction = originalTouchAction;
+      };
+    }
+  }, [mobileMenuOpen]);
+
   return (
     <div className="relative min-h-screen w-full overflow-hidden">
       {/* Connection Status Indicator */}
@@ -120,11 +137,15 @@ export default function AirQualityDashboard() {
         }}
       />
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Overlay - Blocks background interaction when sidebar is open */}
       {mobileMenuOpen && (
         <div
           className="fixed inset-0 bg-black/20 z-40 lg:hidden"
           onClick={() => setMobileMenuOpen(false)}
+          style={{ 
+            pointerEvents: 'auto',
+            touchAction: 'none'
+          }}
         />
       )}
 
@@ -135,6 +156,23 @@ export default function AirQualityDashboard() {
           className={`fixed lg:static inset-y-0 left-0 z-50 lg:z-auto transform transition-transform duration-300 ease-in-out ${
             mobileMenuOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
           }`}
+          style={{ 
+            // Explicit pointer events: enabled when open, disabled when closed
+            pointerEvents: mobileMenuOpen ? 'auto' : 'none',
+            // Explicit touch action: manipulation for fast touch response
+            touchAction: mobileMenuOpen ? 'manipulation' : 'none',
+            // Ensure this container doesn't block child events
+            isolation: 'isolate',
+            WebkitOverflowScrolling: 'touch'
+          }}
+          onClick={(e) => {
+            // Prevent overlay from closing when clicking inside sidebar
+            e.stopPropagation()
+          }}
+          onTouchStart={(e) => {
+            // Prevent overlay from receiving touch events when touching sidebar
+            e.stopPropagation()
+          }}
         >
           <Sidebar onMobileClose={() => setMobileMenuOpen(false)} />
         </div>
@@ -142,25 +180,63 @@ export default function AirQualityDashboard() {
         {/* Center Content */}
         <div className="flex-1 flex flex-col w-full lg:w-auto min-w-0">
           {/* Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-6 lg:mb-8">
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setMobileMenuOpen(true)}
-              className="lg:hidden glass-button p-2.5 rounded-full self-start"
-              aria-label="Open menu"
-            >
-              <Menu className="w-5 h-5 text-white/80" />
-            </button>
+          <div className="mb-6 lg:mb-8">
+            {/* Mobile: top row aligns menu + actions in a single line */}
+            <div className="flex items-center justify-between gap-2 lg:hidden">
+              <button
+                onClick={() => setMobileMenuOpen(true)}
+                className="glass-button p-2.5 rounded-full flex-shrink-0"
+                aria-label="Open menu"
+              >
+                <Menu className="w-5 h-5 text-white/80" />
+              </button>
 
-            <div className={`flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 ${theme === "dark" ? "text-white/90" : "text-white/90"}`}>
-              <div className="flex items-center gap-2">
-                <MapPin className={`w-4 h-4 flex-shrink-0 ${theme === "dark" ? "text-cyan-400" : "text-cyan-300"}`} />
-                <span className="text-xs sm:text-sm font-medium text-white truncate">{location}</span>
+              <div className="flex items-center gap-2 flex-wrap justify-end">
+                <ThemeToggle />
+                <button className="glass-button p-2.5 rounded-full">
+                  <Search className="w-4 h-4 text-white/80" />
+                </button>
+                <button className="glass-button px-3 py-2.5 rounded-full flex items-center gap-2">
+                  <Download className="w-4 h-4 text-white/80" />
+                  <span className="text-xs font-medium text-white hidden sm:inline">Download</span>
+                </button>
+                {isAuthenticated ? (
+                  <button
+                    onClick={() => logout()}
+                    className="glass-button px-3 py-2.5 rounded-full flex items-center gap-2 hover:bg-red-500/20 hover:border-red-500/50 transition-all"
+                    title="Logout"
+                  >
+                    <LogOut className="w-4 h-4 text-white/80" />
+                    <span className="text-xs font-medium text-white hidden sm:inline">Logout</span>
+                  </button>
+                ) : (
+                  <Link
+                    href="/auth/signin"
+                    className="glass-button px-3 py-2.5 rounded-full flex items-center gap-2 hover:bg-cyan-500/20 hover:border-cyan-500/50 transition-all"
+                  >
+                    <LogIn className="w-4 h-4 text-white/80" />
+                    <span className="text-xs font-medium text-white">Sign In</span>
+                  </Link>
+                )}
               </div>
-              <span className="text-white/50 text-xs sm:text-sm sm:ml-2">( {date} )</span>
             </div>
 
-            <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+            {/* Mobile: location/date row below (keeps top row clean) */}
+            <div className={`mt-3 flex items-center gap-2 lg:hidden ${theme === "dark" ? "text-white/90" : "text-white/90"}`}>
+              <MapPin className={`w-4 h-4 flex-shrink-0 ${theme === "dark" ? "text-cyan-400" : "text-cyan-300"}`} />
+              <span className="text-xs font-medium text-white truncate">{location}</span>
+              <span className="text-white/50 text-xs ml-2 flex-shrink-0">( {date} )</span>
+            </div>
+
+            {/* Desktop: unchanged header */}
+            <div className="hidden lg:flex items-center justify-between">
+              <div className={`flex items-center gap-2 ${theme === "dark" ? "text-white/90" : "text-white/90"}`}>
+                <MapPin className={`w-4 h-4 ${theme === "dark" ? "text-cyan-400" : "text-cyan-300"}`} />
+                <span className="text-sm font-medium text-white">{location}</span>
+                <span className="text-white/50 text-sm ml-2">( {date} )</span>
+              </div>
+
+              <div className="flex items-center gap-3 flex-wrap">
               <ThemeToggle />
               <button className="glass-button p-2.5 rounded-full">
                 <Search className="w-4 h-4 text-white/80" />
@@ -199,6 +275,7 @@ export default function AirQualityDashboard() {
                   <span className="text-xs sm:text-sm font-medium text-white">Sign In</span>
                 </Link>
               )}
+              </div>
             </div>
           </div>
 

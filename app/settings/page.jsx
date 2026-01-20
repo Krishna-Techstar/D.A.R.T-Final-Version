@@ -104,9 +104,9 @@ export default function SettingsPage() {
         </div>
 
         {/* Settings Layout */}
-        <div className="flex gap-6 flex-1">
+        <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 flex-1">
           {/* Sections Navigation */}
-          <div className="w-64">
+          <div className="w-full lg:w-64">
             <div className="glass-panel rounded-3xl p-4">
               <nav className="flex flex-col gap-1">
                 {settingsSections.map((section) => {
@@ -144,7 +144,7 @@ export default function SettingsPage() {
           </div>
 
           {/* Settings Content */}
-          <div className="flex-1 glass-panel rounded-3xl p-6">
+          <div className="flex-1 glass-panel rounded-3xl p-4 sm:p-6">
             {currentSection && (
               <>
                 <div className="flex items-center gap-3 mb-6 pb-6 border-b border-white/10">

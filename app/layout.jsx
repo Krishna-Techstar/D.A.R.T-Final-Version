@@ -13,7 +13,14 @@ const inter = Inter({
 export const metadata = {
   title: "D.A.R.T - Dust Analysis & Removal Technology",
   description: "Real-time air quality monitoring with advanced predictions and community action",
-  generator: 'v0.app'
+  generator: 'v0.app',
+}
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 }
 
 export default function RootLayout({ children }) {

@@ -63,9 +63,9 @@ export default function MapClient() {
 
   return (
     <PageLayout>
-      <div className="flex-1 flex gap-6">
+      <div className="flex-1 flex flex-col lg:flex-row gap-4 sm:gap-6">
         {/* Map Area */}
-        <div className="flex-1 glass-panel rounded-3xl overflow-hidden relative min-h-[600px]">
+        <div className="flex-1 glass-panel rounded-3xl overflow-hidden relative min-h-[400px] sm:min-h-[500px] lg:min-h-[600px]">
           <LeafletMap locations={locations} onLocationClick={handleLocationClick} />
           
           {/* Map Legend */}
@@ -89,7 +89,7 @@ export default function MapClient() {
         </div>
 
         {/* Locations Panel */}
-        <div className="w-80 flex flex-col gap-4">
+        <div className="w-full lg:w-80 flex flex-col gap-4 order-first lg:order-last">
           {/* Search */}
           <div className="glass-card rounded-2xl p-4">
             <div className="relative">

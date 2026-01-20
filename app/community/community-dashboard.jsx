@@ -164,9 +164,9 @@ export default function CommunityDashboard() {
   }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
       {/* Left Column - Submission Form & Feed */}
-      <div className="lg:col-span-2 flex flex-col gap-6">
+      <div className="lg:col-span-2 flex flex-col gap-4 sm:gap-6">
         {/* Complaint Submission Card */}
         <div className="glass-panel rounded-3xl p-6">
           <div className="mb-6">
@@ -289,7 +289,7 @@ export default function CommunityDashboard() {
               >
                 <div className="flex gap-4">
                   {/* Image */}
-                  <div className="w-32 h-24 rounded-xl overflow-hidden flex-shrink-0">
+                  <div className="w-24 h-20 sm:w-32 sm:h-24 rounded-xl overflow-hidden flex-shrink-0">
                     <img
                       src={complaint.image || "/placeholder.svg"}
                       alt="Report evidence"
@@ -391,7 +391,7 @@ export default function CommunityDashboard() {
       </div>
 
       {/* Right Column - Verification & Action Status */}
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-4 sm:gap-6 order-first lg:order-last">
         {/* Verification Progress Panel */}
         <div className="glass-panel rounded-3xl p-6 sticky top-6">
           <h3 className="text-lg font-semibold glass-text mb-1">Community Verification Status</h3>

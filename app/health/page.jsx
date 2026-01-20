@@ -70,25 +70,25 @@ export default function HealthPage() {
     <PageLayout>
       <div className="flex-1 flex flex-col gap-6">
         {/* Header */}
-        <div className="flex items-start justify-between">
+        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 lg:gap-6">
           <div>
-            <h1 className="text-3xl font-light glass-text">Health Recommendations</h1>
-            <p className="glass-text-muted text-sm mt-1">Personalized advice based on current air quality</p>
+            <h1 className="text-2xl sm:text-3xl font-light glass-text">Health Recommendations</h1>
+            <p className="glass-text-muted text-xs sm:text-sm mt-1">Personalized advice based on current air quality</p>
           </div>
 
           {/* Current AQI Badge */}
-          <div className="glass-card rounded-2xl p-5">
-            <div className="flex items-center gap-4">
+          <div className="glass-card rounded-2xl p-4 sm:p-5 w-full lg:w-auto">
+            <div className="flex items-center gap-3 sm:gap-4">
               <div className="text-center">
                 <span className="glass-text-muted text-xs uppercase block mb-1">Current AQI</span>
-                <span className="text-4xl font-bold text-orange-400">{currentAqi}</span>
+                <span className="text-3xl sm:text-4xl font-bold text-orange-400">{currentAqi}</span>
               </div>
-              <div className="w-px h-12 bg-white/10" />
-              <div>
+              <div className="w-px h-10 sm:h-12 bg-white/10" />
+              <div className="flex-1">
                 <span className="glass-text-muted text-xs uppercase block mb-1">Status</span>
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-500/20 border border-orange-500/30">
-                  <AlertTriangle className="w-4 h-4 text-orange-400" />
-                  <span className="text-orange-400 text-sm font-medium">Unhealthy for Sensitive</span>
+                <div className="flex items-center gap-2 px-2 sm:px-3 py-1.5 rounded-full bg-orange-500/20 border border-orange-500/30">
+                  <AlertTriangle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-orange-400 flex-shrink-0" />
+                  <span className="text-orange-400 text-xs sm:text-sm font-medium">Unhealthy for Sensitive</span>
                 </div>
               </div>
             </div>
@@ -124,12 +124,12 @@ export default function HealthPage() {
         </div>
 
         {/* Main Content */}
-        <div className="grid grid-cols-3 gap-6 flex-1">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 flex-1">
           {/* Recommendations */}
-          <div className="col-span-2 flex flex-col gap-4">
+          <div className="lg:col-span-2 flex flex-col gap-4">
             <h2 className="glass-text-muted text-xs uppercase tracking-wider">Group Recommendations</h2>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               {recommendations
                 .filter((rec) => 
                   !searchQuery || 
@@ -180,7 +180,7 @@ export default function HealthPage() {
           </div>
 
           {/* Health Tips Sidebar */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 order-first lg:order-last">
             <h2 className="glass-text-muted text-xs uppercase tracking-wider">Quick Tips</h2>
 
             <div className="glass-panel rounded-3xl p-5 flex flex-col gap-4">
@@ -231,7 +231,7 @@ export default function HealthPage() {
         {/* Health Blog Section */}
         <div className="glass-panel rounded-3xl p-6">
           <h2 className="text-2xl font-semibold glass-text mb-6">Health & Wellness Blog</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {[
               {
                 title: "Understanding PM2.5 and Its Health Impacts",

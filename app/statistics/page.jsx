@@ -48,19 +48,19 @@ export default function StatisticsPage() {
     <PageLayout>
       <div className="flex-1 flex flex-col gap-6">
         {/* Page Title */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
           <div>
-            <h1 className="text-3xl font-light glass-text">ML Statistics & Analysis</h1>
-            <p className="glass-text-muted text-sm mt-1">AI-powered predictions and detailed pollutant analysis</p>
+            <h1 className="text-2xl sm:text-3xl font-light glass-text">ML Statistics & Analysis</h1>
+            <p className="glass-text-muted text-xs sm:text-sm mt-1">AI-powered predictions and detailed pollutant analysis</p>
           </div>
 
           {/* Time Range Selector */}
-          <div className="glass-card rounded-xl p-1 flex gap-1">
+          <div className="glass-card rounded-xl p-1 flex gap-1 flex-wrap">
             {["24h", "7d", "30d", "1y"].map((range) => (
               <button
                 key={range}
                 onClick={() => setTimeRange(range)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
                   timeRange === range ? "bg-[var(--glass-accent)]/20 glass-text" : "glass-text-muted hover:glass-text"
                 }`}
               >
@@ -71,25 +71,25 @@ export default function StatisticsPage() {
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
           {[
             { label: "Current AQI", value: "156", icon: Activity, color: "#EF4444" },
             { label: "24h Average", value: "148", icon: TrendingUp, color: "#FB923C" },
             { label: "Weekly Average", value: "127", icon: TrendingDown, color: "#FACC15" },
             { label: "Best Today", value: "98", icon: Wind, color: "#22C55E" },
           ].map((stat) => (
-            <div key={stat.label} className="glass-card rounded-2xl p-5">
-              <div className="flex items-start justify-between mb-3">
-                <stat.icon className="w-5 h-5" style={{ color: stat.color }} />
+            <div key={stat.label} className="glass-card rounded-2xl p-4 sm:p-5">
+              <div className="flex items-start justify-between mb-2 sm:mb-3">
+                <stat.icon className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: stat.color }} />
                 <span className="glass-text-muted text-xs">{stat.label}</span>
               </div>
-              <div className="text-3xl font-bold glass-text">{stat.value}</div>
+              <div className="text-2xl sm:text-3xl font-bold glass-text">{stat.value}</div>
             </div>
           ))}
         </div>
 
         {/* Charts Row */}
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           {/* Hourly Chart */}
           <div className="glass-panel rounded-3xl p-6">
             <h3 className="glass-text text-sm font-semibold mb-2">Hourly AQI Trend</h3>
@@ -145,7 +145,7 @@ export default function StatisticsPage() {
         <div className="glass-panel rounded-3xl p-6">
           <h3 className="glass-text text-lg font-semibold mb-2">AI Predictions (Next 7 Days)</h3>
           <p className="glass-text-muted text-sm mb-6">Machine learning forecast based on historical patterns</p>
-          <div className="grid grid-cols-7 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 sm:gap-3">
             {[
               { day: "Today", aqi: 156, trend: "stable" },
               { day: "Tomorrow", aqi: 142, trend: "down" },
@@ -172,7 +172,7 @@ export default function StatisticsPage() {
         {/* Pollutants Grid */}
         <div className="glass-panel rounded-3xl p-6">
           <h3 className="glass-text text-lg font-semibold mb-6">Pollutant Breakdown</h3>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
             {pollutantData.map((pollutant) => (
               <div key={pollutant.name} className="glass-card rounded-2xl p-5">
                 <div className="flex items-center justify-between mb-4">

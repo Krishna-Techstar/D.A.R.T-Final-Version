@@ -75,13 +75,13 @@ export default function SensorsPage() {
     <PageLayout>
       <div className="flex-1 flex flex-col gap-6">
         {/* Page Title */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
           <div>
-            <h1 className="text-3xl font-light glass-text">Sensor Module Data</h1>
-            <p className="glass-text-muted text-sm mt-1">Real-time sensor readings and environmental data</p>
+            <h1 className="text-2xl sm:text-3xl font-light glass-text">Sensor Module Data</h1>
+            <p className="glass-text-muted text-xs sm:text-sm mt-1">Real-time sensor readings and environmental data</p>
           </div>
           {isConnected && (
-            <div className="flex items-center gap-2 bg-green-500/20 text-green-400 px-3 py-1.5 rounded-full text-xs">
+            <div className="flex items-center gap-2 bg-green-500/20 text-green-400 px-3 py-1.5 rounded-full text-xs self-start sm:self-auto">
               <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
               Live Data
             </div>
@@ -125,7 +125,7 @@ export default function SensorsPage() {
                 <Cloud className="w-5 h-5 text-[var(--glass-accent)]" />
                 Particulate Matter
               </h2>
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
                 <DataCard
                   label="PM1.0"
                   value={Math.round(sensor.pm1 || 0)}
@@ -194,7 +194,7 @@ export default function SensorsPage() {
                 <Thermometer className="w-5 h-5 text-[var(--glass-accent)]" />
                 BME280 Environmental Sensor
               </h2>
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
                 <DataCard
                   label="Temperature"
                   value={Math.round(sensor.temperature || 0)}
@@ -263,27 +263,27 @@ export default function SensorsPage() {
                 <Clock className="w-5 h-5 text-[var(--glass-accent)]" />
                 Sensor Information
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 <div>
                   <div className="text-xs glass-text-muted mb-1">Sensor ID</div>
-                  <div className="text-lg glass-text font-medium">{sensor.sensorId}</div>
+                  <div className="text-base sm:text-lg glass-text font-medium">{sensor.sensorId}</div>
                 </div>
                 <div>
                   <div className="text-xs glass-text-muted mb-1">Location</div>
-                  <div className="text-lg glass-text font-medium">
+                  <div className="text-base sm:text-lg glass-text font-medium">
                     {sensor.location?.address || `${sensor.lat}, ${sensor.lng}`}
                   </div>
                   {sensor.location?.city && (
-                    <div className="text-sm glass-text-muted">{sensor.location.city}, {sensor.location.state}</div>
+                    <div className="text-xs sm:text-sm glass-text-muted">{sensor.location.city}, {sensor.location.state}</div>
                   )}
                 </div>
                 <div>
                   <div className="text-xs glass-text-muted mb-1">Last Reading Time</div>
-                  <div className="text-lg glass-text font-medium">{formatTime(sensor.lastReading)}</div>
+                  <div className="text-base sm:text-lg glass-text font-medium">{formatTime(sensor.lastReading)}</div>
                 </div>
                 <div>
                   <div className="text-xs glass-text-muted mb-1">Status</div>
-                  <div className={`text-lg font-medium ${
+                  <div className={`text-base sm:text-lg font-medium ${
                     sensor.status === 'active' ? 'text-green-400' :
                     sensor.status === 'maintenance' ? 'text-yellow-400' : 'text-red-400'
                   }`}>
@@ -292,11 +292,11 @@ export default function SensorsPage() {
                 </div>
                 <div>
                   <div className="text-xs glass-text-muted mb-1">AQI</div>
-                  <div className="text-lg glass-text font-medium">{Math.round(sensor.aqi || 0)}</div>
+                  <div className="text-base sm:text-lg glass-text font-medium">{Math.round(sensor.aqi || 0)}</div>
                 </div>
                 <div>
                   <div className="text-xs glass-text-muted mb-1">Updated At</div>
-                  <div className="text-lg glass-text font-medium">{formatTime(sensor.updatedAt)}</div>
+                  <div className="text-base sm:text-lg glass-text font-medium">{formatTime(sensor.updatedAt)}</div>
                 </div>
               </div>
             </div>
@@ -313,14 +313,14 @@ export default function SensorsPage() {
 
 function DataCard({ label, value, unit, icon: Icon, color }) {
   return (
-    <div className="glass-card rounded-xl p-4 border border-white/5">
+    <div className="glass-card rounded-xl p-3 sm:p-4 border border-white/5">
       <div className="flex items-center justify-between mb-2">
         <div className="text-xs glass-text-muted">{label}</div>
-        {Icon && <Icon className="w-4 h-4" style={{ color }} />}
+        {Icon && <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" style={{ color }} />}
       </div>
       <div className="flex items-baseline gap-1">
-        <span className="text-2xl font-light glass-text">{value}</span>
-        <span className="text-sm glass-text-muted">{unit}</span>
+        <span className="text-xl sm:text-2xl font-light glass-text">{value}</span>
+        <span className="text-xs sm:text-sm glass-text-muted">{unit}</span>
       </div>
     </div>
   )
