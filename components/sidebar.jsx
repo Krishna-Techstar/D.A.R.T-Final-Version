@@ -1,13 +1,13 @@
 "use client"
 
 import { useState } from "react"
-import { ChevronRight, MessageSquare, Home, MapPin, BarChart3, Heart, Settings, Users, Calendar, LogIn, DollarSign, Activity } from "lucide-react"
+import { ChevronRight, MessageSquare, Home, MapPin, BarChart3, Heart, Settings, Users, Calendar, LogIn, DollarSign, Activity, X } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useAuth } from "./auth-provider"
 import GlobeVisualization from "./globe-visualization"
 
-export default function Sidebar() {
+export default function Sidebar({ onMobileClose }) {
   const [aqiPercent] = useState(62)
   const pathname = usePathname()
   const { isAuthenticated } = useAuth()
@@ -35,7 +35,18 @@ export default function Sidebar() {
   ]
 
   return (
-    <div className="w-64 glass-panel rounded-3xl p-6 flex flex-col">
+    <div className="w-64 h-full lg:h-auto glass-panel rounded-none lg:rounded-3xl p-4 sm:p-6 flex flex-col overflow-y-auto shadow-2xl lg:shadow-none">
+      {/* Mobile Close Button */}
+      {onMobileClose && (
+        <button
+          onClick={onMobileClose}
+          className="lg:hidden glass-button p-2 rounded-full mb-4 self-end"
+          aria-label="Close menu"
+        >
+          <X className="w-4 h-4" />
+        </button>
+      )}
+
       {/* Logo */}
       <div className="mb-6">
         <Link href="/">
