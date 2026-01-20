@@ -26,7 +26,8 @@ export default function RecentLocations() {
         </button>
       </div>
 
-      <div className="flex gap-3">
+      {/* Responsive: stack cards vertically on very small screens, keep row layout on larger screens */}
+      <div className="flex flex-col gap-3 sm:flex-row">
         {locations.map((loc) => (
           <div
             key={loc.city}

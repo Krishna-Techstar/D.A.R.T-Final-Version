@@ -119,15 +119,15 @@ export default function AirQualityDashboard() {
         }}
       />
 
-      {/* Main Content */}
-      <div className="relative z-10 flex min-h-screen p-6 gap-6">
+      {/* Main Content - responsive layout: stack sidebar above content on small screens */}
+      <div className="relative z-10 flex flex-col min-h-screen p-4 gap-4 md:p-6 md:gap-6 lg:flex-row">
         {/* Left Sidebar */}
         <Sidebar />
 
         {/* Center Content */}
         <div className="flex-1 flex flex-col">
-          {/* Header */}
-          <div className="flex items-center justify-between mb-8">
+          {/* Header - responsive: stack location and actions on small screens */}
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-8">
             <div className={`flex items-center gap-2 ${theme === "dark" ? "text-white/90" : "text-white/90"}`}>
               <MapPin className={`w-4 h-4 ${theme === "dark" ? "text-cyan-400" : "text-cyan-300"}`} />
               <span className="text-sm font-medium text-white">{location}</span>
@@ -176,8 +176,8 @@ export default function AirQualityDashboard() {
             </div>
           </div>
 
-          {/* Main AQI Display */}
-          <div className="flex-1 flex">
+          {/* Main AQI Display - responsive: stack main and side panels vertically on small screens */}
+          <div className="flex-1 flex flex-col lg:flex-row">
             <div className="flex-1">
               <AqiDisplay aqi={currentAqi} />
 
@@ -193,8 +193,8 @@ export default function AirQualityDashboard() {
               </div>
             </div>
 
-            {/* Right Panel */}
-            <div className="w-96 flex flex-col gap-6 ml-8">
+            {/* Right Panel - responsive: full width on small screens, fixed width on desktop */}
+            <div className="w-full lg:w-96 flex flex-col gap-6 lg:ml-8 mt-8 lg:mt-0">
               {/* Description Card */}
               <div className="glass-card p-5 rounded-2xl">
                 <p className="text-white/70 text-sm leading-relaxed">
