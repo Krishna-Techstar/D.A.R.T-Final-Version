@@ -158,8 +158,7 @@ html.dark {
     @apply border-border outline-ring/50;
   }
   body {
-    /* Responsive: prevent accidental horizontal scrolling while preserving vertical scrolling */
-    @apply bg-background text-foreground overflow-x-hidden;
+    @apply bg-background text-foreground;
   }
 }
 

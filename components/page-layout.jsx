@@ -41,15 +41,15 @@ export default function PageLayout({ children }) {
         }}
       />
 
-      {/* Main Content - responsive layout: stack on small screens, keep two-column on desktop */}
-      <div className="relative z-10 flex flex-col min-h-screen p-4 gap-4 md:p-6 md:gap-6 lg:flex-row">
+      {/* Main Content */}
+      <div className="relative z-10 flex min-h-screen p-6 gap-6">
         <Suspense fallback={<SidebarFallback />}>
           <Sidebar />
         </Suspense>
 
         <div className="flex-1 flex flex-col">
-          {/* Header - responsive: stack meta and actions on small screens to prevent overflow */}
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-8">
+          {/* Header */}
+          <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-2 glass-text">
               <MapPin className="w-4 h-4 text-[var(--glass-accent)]" />
               <span className="text-sm font-medium">Kharghar, Navi Mumbai, India</span>

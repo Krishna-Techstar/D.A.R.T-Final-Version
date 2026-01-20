@@ -3,14 +3,11 @@
 export default function AqiDisplay({ aqi }) {
   const displayAqi = Math.round(aqi || 0);
   return (
-    // Responsive: allow AQI number and details to stack on small screens to avoid horizontal overflow
-    <div className="flex flex-col items-start gap-4 md:flex-row md:items-start md:gap-6">
+    <div className="flex items-start gap-6">
       {/* Main AQI Number */}
-      <div className="relative flex items-baseline gap-3 md:gap-4">
-        <span className="text-[96px] md:text-[140px] font-extralight text-white leading-none tracking-tighter">
-          {displayAqi}
-        </span>
-        <span className="text-3xl md:text-4xl text-white/60 mt-3 md:mt-4 whitespace-nowrap">AQI</span>
+      <div className="relative flex items-baseline gap-4">
+        <span className="text-[140px] font-extralight text-white leading-none tracking-tighter">{displayAqi}</span>
+        <span className="text-4xl text-white/60 mt-4 whitespace-nowrap">AQI</span>
       </div>
 
       {/* High/Low Values */}

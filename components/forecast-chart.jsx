@@ -86,10 +86,9 @@ export default function ForecastChart() {
   }, [])
 
   return (
-    // Responsive: reduce side padding on small screens while preserving desktop spacing
     <div className="w-full">
       {/* Days Labels */}
-      <div className="flex justify-between px-4 sm:px-10 mb-4">
+      <div className="flex justify-between px-10 mb-4">
         {forecastData.map((d, i) => (
           <span key={d.day} className={`text-sm ${i === 3 ? "text-white font-medium" : "text-white/50"}`}>
             {d.day}
@@ -103,7 +102,7 @@ export default function ForecastChart() {
       </div>
 
       {/* AQI Values */}
-      <div className="flex justify-between px-4 sm:px-10 mt-2">
+      <div className="flex justify-between px-10 mt-2">
         {forecastData.map((d, i) => (
           <span
             key={`val-${d.day}`}
