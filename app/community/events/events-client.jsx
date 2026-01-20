@@ -187,9 +187,9 @@ export default function EventsClient() {
 
   return (
     <PageLayout title="Volunteer Events" subtitle="Join community events and make a difference">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         {/* Main Content - Events List */}
-        <div className="lg:col-span-2 flex flex-col gap-6">
+        <div className="lg:col-span-2 flex flex-col gap-4 sm:gap-6">
           {/* Search & Filter Bar */}
           <div className="glass-panel rounded-3xl p-4">
             <div className="flex flex-col sm:flex-row gap-4">
@@ -459,7 +459,7 @@ export default function EventsClient() {
         </div>
 
         {/* Right Sidebar */}
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4 sm:gap-6 order-first lg:order-last">
           {/* Your Volunteer Stats */}
           <div className="glass-panel rounded-3xl p-6 sticky top-6">
             <h3 className="text-lg font-semibold glass-text mb-1">Your Impact</h3>

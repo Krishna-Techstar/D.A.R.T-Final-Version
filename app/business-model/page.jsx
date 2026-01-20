@@ -189,10 +189,10 @@ export default function BusinessModelPage() {
         </div>
 
         {/* Cost Comparison */}
-        <div className="glass-panel rounded-3xl p-6">
-          <h2 className="text-2xl font-semibold glass-text mb-6">Cost Comparison</h2>
-          <div className="overflow-x-auto">
-            <table className="w-full">
+        <div className="glass-panel rounded-3xl p-4 sm:p-6">
+          <h2 className="text-xl sm:text-2xl font-semibold glass-text mb-4 sm:mb-6">Cost Comparison</h2>
+          <div className="overflow-x-auto -mx-4 sm:mx-0">
+            <table className="w-full min-w-[600px]">
               <thead>
                 <tr className="border-b border-[var(--glass-border)]">
                   <th className="text-left py-4 px-4 glass-text font-semibold">Feature</th>
@@ -278,7 +278,7 @@ export default function BusinessModelPage() {
         {/* Why Choose Us */}
         <div className="glass-panel rounded-3xl p-6">
           <h2 className="text-2xl font-semibold glass-text mb-6">Why Choose D.A.R.T?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {WHY_CHOOSE_US.map((item, index) => {
               const Icon = item.icon
               return (

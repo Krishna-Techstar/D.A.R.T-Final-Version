@@ -1,15 +1,16 @@
 "use client"
 
 import { useState } from "react"
-import { ChevronRight, MessageSquare, Home, MapPin, BarChart3, Heart, Settings, Users, Calendar, LogIn, DollarSign, Activity } from "lucide-react"
+import { ChevronRight, MessageSquare, Home, MapPin, BarChart3, Heart, Settings, Users, Calendar, LogIn, DollarSign, Activity, X } from "lucide-react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { useAuth } from "./auth-provider"
 import GlobeVisualization from "./globe-visualization"
 
-export default function Sidebar() {
+export default function Sidebar({ onMobileClose }) {
   const [aqiPercent] = useState(62)
   const pathname = usePathname()
+  const router = useRouter()
   const { isAuthenticated } = useAuth()
 
   const getAqiStatus = (percent) => {
@@ -35,10 +36,68 @@ export default function Sidebar() {
   ]
 
   return (
-    <div className="w-64 glass-panel rounded-3xl p-6 flex flex-col">
+    <div 
+      className="w-64 h-full lg:h-auto glass-panel rounded-none lg:rounded-3xl p-4 sm:p-6 flex flex-col overflow-y-auto shadow-2xl lg:shadow-none"
+      style={{
+        // Ensure sidebar receives all pointer and touch events
+        pointerEvents: 'auto',
+        touchAction: 'manipulation',
+        // Prevent backdrop-filter from creating stacking context issues
+        isolation: 'isolate',
+        WebkitOverflowScrolling: 'touch'
+      }}
+    >
+      {/* Mobile Close Button */}
+      {onMobileClose && (
+        <button
+          onClick={(e) => {
+            e.stopPropagation()
+            onMobileClose()
+          }}
+          onTouchStart={(e) => {
+            e.stopPropagation()
+            onMobileClose()
+          }}
+          className="lg:hidden glass-button p-2 rounded-full mb-4 self-end"
+          aria-label="Close menu"
+          style={{ 
+            touchAction: 'manipulation',
+            WebkitTapHighlightColor: 'transparent',
+            WebkitTouchCallout: 'none',
+            minWidth: '44px',
+            minHeight: '44px'
+          }}
+        >
+          <X className="w-4 h-4" />
+        </button>
+      )}
+
       {/* Logo */}
       <div className="mb-6">
-        <Link href="/">
+        <Link 
+          href="/"
+          onClick={(e) => {
+            e.stopPropagation()
+            if (onMobileClose) {
+              onMobileClose()
+            }
+          }}
+          onTouchStart={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            router.push("/")
+            if (onMobileClose) {
+              onMobileClose()
+            }
+          }}
+          style={{ 
+            touchAction: 'manipulation',
+            WebkitTapHighlightColor: 'transparent',
+            WebkitTouchCallout: 'none',
+            display: 'block',
+            cursor: 'pointer'
+          }}
+        >
           <h1 className="text-xl font-semibold glass-text tracking-tight">D.A.R.T</h1>
           <p className="text-xs glass-text-muted mt-0.5">Dust Analysis & Removal Technology</p>
         </Link>
@@ -49,17 +108,50 @@ export default function Sidebar() {
           {navItems.map((item) => {
             const isActive = pathname === item.href
             const isSubPage = item.href.includes("/community/")
+            
+            const handleTouchStart = (e) => {
+              // Prevent default to stop any delays
+              e.preventDefault()
+              e.stopPropagation()
+              
+              // Navigate immediately on mobile touch
+              router.push(item.href)
+              
+              // Close mobile sidebar immediately
+              if (onMobileClose) {
+                onMobileClose()
+              }
+            }
+            
+            const handleClick = (e) => {
+              // For desktop, let Link handle it normally
+              e.stopPropagation()
+              if (onMobileClose) {
+                onMobileClose()
+              }
+            }
+            
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all ${isSubPage ? "ml-4" : ""} ${
+                onClick={handleClick}
+                onTouchStart={handleTouchStart}
+                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all w-full min-h-[44px] ${isSubPage ? "ml-4" : ""} ${
                   isActive
                     ? "bg-[var(--glass-card-bg)] glass-text"
                     : "glass-text-muted hover:bg-[var(--glass-card-bg)] hover:glass-text"
                 }`}
+                style={{ 
+                  touchAction: 'manipulation',
+                  WebkitTapHighlightColor: 'transparent',
+                  WebkitTouchCallout: 'none',
+                  userSelect: 'none',
+                  WebkitUserSelect: 'none',
+                  cursor: 'pointer'
+                }}
               >
-                <item.icon className={`w-4 h-4 ${isActive ? "text-[var(--glass-accent)]" : ""}`} />
+                <item.icon className={`w-4 h-4 flex-shrink-0 ${isActive ? "text-[var(--glass-accent)]" : ""}`} />
                 <span className="text-sm font-medium">{item.label}</span>
               </Link>
             )
@@ -133,7 +225,27 @@ export default function Sidebar() {
 
         <Link
           href="/statistics"
-          className="flex items-center gap-1 glass-text-muted text-sm mt-4 hover:glass-text transition-colors"
+          onClick={(e) => {
+            e.stopPropagation()
+            if (onMobileClose) {
+              onMobileClose()
+            }
+          }}
+          onTouchStart={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            router.push("/statistics")
+            if (onMobileClose) {
+              onMobileClose()
+            }
+          }}
+          className="flex items-center gap-1 glass-text-muted text-sm mt-4 hover:glass-text transition-colors w-full"
+          style={{ 
+            touchAction: 'manipulation',
+            WebkitTapHighlightColor: 'transparent',
+            WebkitTouchCallout: 'none',
+            cursor: 'pointer'
+          }}
         >
           See More Details
           <ChevronRight className="w-4 h-4" />
@@ -147,7 +259,27 @@ export default function Sidebar() {
           <div className="flex gap-1">
             <Link
               href="/map"
+              onClick={(e) => {
+                e.stopPropagation()
+                if (onMobileClose) {
+                  onMobileClose()
+                }
+              }}
+              onTouchStart={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                router.push("/map")
+                if (onMobileClose) {
+                  onMobileClose()
+                }
+              }}
               className="p-1.5 rounded-md bg-[var(--glass-card-bg)] hover:brightness-110 transition-all"
+              style={{ 
+                touchAction: 'manipulation',
+                WebkitTapHighlightColor: 'transparent',
+                WebkitTouchCallout: 'none',
+                cursor: 'pointer'
+              }}
             >
               <svg className="w-3 h-3 text-[var(--glass-accent)]" fill="currentColor" viewBox="0 0 20 20">
                 <path
@@ -176,7 +308,27 @@ export default function Sidebar() {
         <div className="mt-auto pt-4 border-t border-white/10">
           <Link
             href="/auth/signin"
+            onClick={(e) => {
+              e.stopPropagation()
+              if (onMobileClose) {
+                onMobileClose()
+              }
+            }}
+            onTouchStart={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              router.push("/auth/signin")
+              if (onMobileClose) {
+                onMobileClose()
+              }
+            }}
             className="glass-button w-full py-2.5 rounded-xl flex items-center justify-center gap-2 hover:bg-cyan-500/20 hover:border-cyan-500/50 transition-all"
+            style={{ 
+              touchAction: 'manipulation',
+              WebkitTapHighlightColor: 'transparent',
+              WebkitTouchCallout: 'none',
+              cursor: 'pointer'
+            }}
           >
             <LogIn className="w-4 h-4" />
             <span className="text-sm font-medium">Sign In</span>

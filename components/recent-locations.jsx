@@ -26,15 +26,15 @@ export default function RecentLocations() {
         </button>
       </div>
 
-      <div className="flex gap-3">
+      <div className="flex flex-col sm:flex-row gap-3">
         {locations.map((loc) => (
           <div
             key={loc.city}
-            className="glass-card flex-1 p-4 rounded-2xl hover:bg-white/15 transition-colors cursor-pointer"
+            className="glass-card flex-1 p-3 sm:p-4 rounded-2xl hover:bg-white/15 transition-colors cursor-pointer"
           >
-            <loc.icon className="w-6 h-6 text-white/60 mb-3" />
+            <loc.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white/60 mb-2 sm:mb-3" />
             <div className="flex items-baseline gap-1 mb-1">
-              <span className="text-2xl font-semibold" style={{ color: getStatusColor(loc.aqi) }}>
+              <span className="text-xl sm:text-2xl font-semibold" style={{ color: getStatusColor(loc.aqi) }}>
                 {Math.round(loc.aqi || 0)}
               </span>
               <span className="text-xs text-white/40">AQI</span>

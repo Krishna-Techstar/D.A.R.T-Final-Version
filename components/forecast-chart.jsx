@@ -85,28 +85,37 @@ export default function ForecastChart() {
     ctx.shadowBlur = 0
   }, [])
 
+  // Abbreviate day names for mobile
+  const getDayLabel = (day, isMobile) => {
+    if (isMobile) {
+      return day.substring(0, 3);
+    }
+    return day;
+  };
+
   return (
-    <div className="w-full">
+    <div className="w-full overflow-x-auto">
       {/* Days Labels */}
-      <div className="flex justify-between px-10 mb-4">
+      <div className="flex justify-between px-4 sm:px-6 md:px-10 mb-3 sm:mb-4">
         {forecastData.map((d, i) => (
-          <span key={d.day} className={`text-sm ${i === 3 ? "text-white font-medium" : "text-white/50"}`}>
-            {d.day}
+          <span key={d.day} className={`text-xs sm:text-sm ${i === 3 ? "text-white font-medium" : "text-white/50"}`}>
+            <span className="hidden sm:inline">{d.day}</span>
+            <span className="sm:hidden">{getDayLabel(d.day, true)}</span>
           </span>
         ))}
       </div>
 
       {/* Chart Canvas */}
-      <div className="relative h-32">
+      <div className="relative h-24 sm:h-28 md:h-32">
         <canvas ref={canvasRef} width={800} height={150} className="w-full h-full" />
       </div>
 
       {/* AQI Values */}
-      <div className="flex justify-between px-10 mt-2">
+      <div className="flex justify-between px-4 sm:px-6 md:px-10 mt-2">
         {forecastData.map((d, i) => (
           <span
             key={`val-${d.day}`}
-            className={`text-2xl font-light ${
+            className={`text-lg sm:text-xl md:text-2xl font-light ${
               i === 3 ? "text-amber-400" : i === 4 ? "text-orange-400/80" : "text-white/60"
             }`}
           >
