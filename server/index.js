@@ -24,7 +24,7 @@ const server = app.listen(PORT, () => {
     } mode on port ${PORT}`
   );
   console.log(
-    `📡 API available at https://dart-final-version-production.up.railway.app/api/`,
+    `📡 API available at https://d-a-r-t-final-version.onrender.com/api/`,
   );
 
   // Initialize WebSocket server
