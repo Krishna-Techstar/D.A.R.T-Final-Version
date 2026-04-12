@@ -14,13 +14,8 @@ const nextConfig = {
         headers: [
           {
             key: "Content-Security-Policy",
-            value: `
-              default-src 'self' https: data: blob:;
-              connect-src 'self' https://d-a-r-t-final-version.onrender.com https:;
-              img-src 'self' data: blob: https:;
-              script-src 'self' 'unsafe-inline' 'unsafe-eval' https:;
-              style-src 'self' 'unsafe-inline' https:;
-            `.replace(/\n/g, ""),
+            value:
+              "default-src *; connect-src *; img-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline';",
           },
         ],
       },
